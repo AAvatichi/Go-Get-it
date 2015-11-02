@@ -1,7 +1,11 @@
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2008
 
+Project("{EE904452-84A3-F5EB-04B0-8417E16ECB95}") = "Defender", "Assembly-CSharp-firstpass.csproj", "{F323112B-AF9C-6D89-3C7D-BF14F1D68B5C}"
+EndProject
 Project("{EE904452-84A3-F5EB-04B0-8417E16ECB95}") = "Defender", "Assembly-CSharp.csproj", "{3394542C-43E3-0C2F-39EF-7D2D42C6713F}"
+EndProject
+Project("{EE904452-84A3-F5EB-04B0-8417E16ECB95}") = "Defender", "Assembly-CSharp-Editor.csproj", "{D4393953-FDE7-3BE5-86BA-28F1748A0C1D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -9,15 +13,23 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F323112B-AF9C-6D89-3C7D-BF14F1D68B5C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F323112B-AF9C-6D89-3C7D-BF14F1D68B5C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F323112B-AF9C-6D89-3C7D-BF14F1D68B5C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F323112B-AF9C-6D89-3C7D-BF14F1D68B5C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3394542C-43E3-0C2F-39EF-7D2D42C6713F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{3394542C-43E3-0C2F-39EF-7D2D42C6713F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3394542C-43E3-0C2F-39EF-7D2D42C6713F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3394542C-43E3-0C2F-39EF-7D2D42C6713F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D4393953-FDE7-3BE5-86BA-28F1748A0C1D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D4393953-FDE7-3BE5-86BA-28F1748A0C1D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D4393953-FDE7-3BE5-86BA-28F1748A0C1D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D4393953-FDE7-3BE5-86BA-28F1748A0C1D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
-												GlobalSection(MonoDevelopProperties) = preSolution
+																											GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = Assembly-CSharp.csproj
 		Policies = $0
 		$0.TextStylePolicy = $1
