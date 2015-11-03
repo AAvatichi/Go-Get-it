@@ -8,6 +8,7 @@ public class PlayerShooting : MonoBehaviour {
     public float range = 100f;                      // The distance the gun can fire.
 
     float timer;                                    // A timer to determine when to fire.
+    float shootingInaccuracy = 10f;                 // How accuracy is the shooting. Smaller, means more accuracy
     Ray shootRay;                                   // A ray from the gun end forwards.
     RaycastHit shootHit;                            // A raycast hit to get information about what was hit.
     //int shootableMask;                              // A layer mask so the raycast only hits things on the shootable layer.
@@ -56,6 +57,7 @@ public class PlayerShooting : MonoBehaviour {
         gunLight.enabled = false;
     }
 
+
     void Shoot()
     {
         // Reset the timer.
@@ -77,8 +79,12 @@ public class PlayerShooting : MonoBehaviour {
 
         // Set the shootRay so that it starts at the end of the gun and points forward from the barrel.
         shootRay.origin = transform.position;
-        shootRay.direction = transform.forward;
+        shootHit = findHitPoint();
+        shootRay.direction = shootHit.point - transform.position;
+        gunLine.SetPosition(1, shootHit.point);
 
+        /*
+        shootRay.direction = transform.forward;
         // Perform the raycast against gameobjects on the shootable layer and if it hits something...
         if (Physics.Raycast(shootRay, out shootHit, range))
         {
@@ -92,10 +98,10 @@ public class PlayerShooting : MonoBehaviour {
                 // ... the enemy should take damage.
                 enemyHealth.TakeDamage(damagePerShot, shootHit.point);
             }
-            */
+            * /
 
-            // Set the second position of the line renderer to the point the raycast hit.
-            gunLine.SetPosition(1, shootHit.point);
+        // Set the second position of the line renderer to the point the raycast hit.
+        gunLine.SetPosition(1, shootHit.point);
         }
         // If the raycast didn't hit anything on the shootable layer...
         else
@@ -103,5 +109,25 @@ public class PlayerShooting : MonoBehaviour {
             // ... set the second position of the line renderer to the fullest extent of the gun's range.
             gunLine.SetPosition(1, shootRay.origin + shootRay.direction * range);
         }
+        */
+    }
+
+    RaycastHit findHitPoint()
+    {
+        // Create a ray from the mouse cursor on screen in the direction of the camera.
+        float xHitPoint = (Screen.width / 2) + Random.Range(-shootingInaccuracy, shootingInaccuracy); // move away from the center of the screen "shootingInaccuracy" pixels
+        float yHitPoint = (Screen.height / 2) + Random.Range(-shootingInaccuracy, shootingInaccuracy); // move away from the center of the screen "shootingInaccuracy" pixels
+
+        Vector3 screenCenter = new Vector3(xHitPoint, yHitPoint, 0);
+        Ray camRay = Camera.main.ScreenPointToRay(screenCenter);
+
+        // Create a RaycastHit variable to store information about what was hit by the ray.
+        RaycastHit hit;
+        float camRayLength = 100;
+        // Perform the raycast and if it hits something on the floor layer...
+        Physics.Raycast(camRay, out hit, camRayLength);
+        
+        return hit;
+
     }
 }
