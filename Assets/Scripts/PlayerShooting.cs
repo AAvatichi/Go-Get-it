@@ -60,7 +60,6 @@ public class PlayerShooting : MonoBehaviour {
 
     void Shoot()
     {
-        Debug.Log(timer);
         // Reset the timer.
         timer = 0f;
 
@@ -83,6 +82,15 @@ public class PlayerShooting : MonoBehaviour {
         shootHit = findHitPoint();
         shootRay.direction = shootHit.point - transform.position;
         gunLine.SetPosition(1, shootHit.point);
+
+        EnemyHealth enemyHealth = shootHit.collider.GetComponent<EnemyHealth>();
+
+        // If the EnemyHealth component exist...
+        if (enemyHealth != null)
+        {
+            // ... the enemy should take damage.
+            enemyHealth.TakeDamage(damagePerShot, shootHit.point);
+        }
 
         /*
         shootRay.direction = transform.forward;
