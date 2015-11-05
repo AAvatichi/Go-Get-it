@@ -8,7 +8,6 @@ public class GroundEnemyMovement : MonoBehaviour {
     //EnemyHealth enemyHealth;        // Reference to this enemy's health.
     NavMeshAgent nav;               // Reference to the nav mesh agent.
 
-
     void Awake()
     {
         // Set up the references.
@@ -17,13 +16,16 @@ public class GroundEnemyMovement : MonoBehaviour {
         //playerHealth = player.GetComponent <PlayerHealth> ();
         //enemyHealth = GetComponent <EnemyHealth> ();
         nav = GetComponent<NavMeshAgent>();
+ 
     }
 
 
     void Update()
     {
-        //Debug.Log(player.position);
-        nav.SetDestination(player.position);
+        // When the enemy is dead the nav is disabled, and then you can't call nav.SetDestination()
+        if (nav.enabled)
+            nav.SetDestination(player.position);
+
         /*
         // If the enemy and the player have health left...
         if (enemyHealth.currentHealth > 0 && playerHealth.currentHealth > 0)
