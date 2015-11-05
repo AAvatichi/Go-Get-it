@@ -1335,6 +1335,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blood: {fileID: 404658, guid: 5c5b786b9b5bf1243a1758dd77a8e35e, type: 2}
+  startingHealth: 100
+  currentHealth: 0
+  sinkSpeed: .5
+  scoreValue: 10
+  deathClip: {fileID: 0}
+  dyingDueation: .5
 --- !u!114 &11463426
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1502,6 +1508,14 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_Height
       value: 1.39999998
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: sinkSpeed
+      value: .5
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: dyingDueation
+      value: .5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
