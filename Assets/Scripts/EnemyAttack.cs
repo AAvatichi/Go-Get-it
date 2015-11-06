@@ -27,6 +27,7 @@ public class EnemyAttack : MonoBehaviour {
 
     void OnTriggerEnter(Collider other)
     {
+        
         // If the entering collider is the player...
         if (other.gameObject == fance)
         {
@@ -41,7 +42,7 @@ public class EnemyAttack : MonoBehaviour {
         // If the exiting collider is the player...
         if (other.gameObject == fance)
         {
-            anim.SetBool("AttackingRange", false);
+            //anim.SetBool("AttackingRange", false);
             // ... the player is no longer in range.
             fanceInRange = false;
         }
