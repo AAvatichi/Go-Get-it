@@ -11,6 +11,7 @@ public class PlayerShooting : MonoBehaviour {
     float shootingInaccuracy = 10f;                 // How accuracy is the shooting. Smaller, means more accuracy
     Ray shootRay;                                   // A ray from the gun end forwards.
     RaycastHit shootHit;                            // A raycast hit to get information about what was hit.
+    Vector3 hitPoint = new Vector3();
     //int shootableMask;                              // A layer mask so the raycast only hits things on the shootable layer.
     ParticleSystem gunParticles;                    // Reference to the particle system.
     LineRenderer gunLine;                           // Reference to the line renderer.
@@ -79,19 +80,40 @@ public class PlayerShooting : MonoBehaviour {
 
         // Set the shootRay so that it starts at the end of the gun and points forward from the barrel.
         shootRay.origin = transform.position;
+        Collider collider = findHitPoint(out hitPoint);
+
+        shootRay.direction = hitPoint - transform.position;
+        gunLine.SetPosition(1, hitPoint);
+
+        // If the shot hit something
+        if (collider != null)
+        {
+            // If the the shot shited a collider
+            EnemyHealth enemyHealth = collider.GetComponent<EnemyHealth>();
+            // ... the enemy should take damage.
+            if(enemyHealth != null)
+                enemyHealth.TakeDamage(damagePerShot, hitPoint);
+        }
+
+        /*
+
+        // Set the shootRay so that it starts at the end of the gun and points forward from the barrel.
+        shootRay.origin = transform.position;
         shootHit = findHitPoint();
         shootRay.direction = shootHit.point - transform.position;
         gunLine.SetPosition(1, shootHit.point);
 
         EnemyHealth enemyHealth = shootHit.collider.GetComponent<EnemyHealth>();
 
-        // If the EnemyHealth component exist...
+        // If the the shot shited a collider
         if (enemyHealth != null)
         {
             // ... the enemy should take damage.
+            
             enemyHealth.TakeDamage(damagePerShot, shootHit.point);
         }
 
+        */
         /*
         shootRay.direction = transform.forward;
         // Perform the raycast against gameobjects on the shootable layer and if it hits something...
@@ -121,6 +143,50 @@ public class PlayerShooting : MonoBehaviour {
         */
     }
 
+    
+    Collider findHitPoint(out Vector3 hitPoint)
+    {
+        /*
+            The function find where to shoot at, and if the shot hit's a collider,
+            the function puts the end point or hit point in the variable "hitPoint".
+            If the line hits some thing then the function will return the collider
+            of the object it hited. Other wise it will return null.
+        */
+
+        // Create a ray from the mouse cursor on screen in the direction of the camera.
+        float xHitPoint = (Screen.width / 2) + Random.Range(-shootingInaccuracy, shootingInaccuracy); // move away from the center of the screen "shootingInaccuracy" pixels
+        float yHitPoint = (Screen.height / 2) + Random.Range(-shootingInaccuracy, shootingInaccuracy); // move away from the center of the screen "shootingInaccuracy" pixels
+
+        Vector3 screenCenter = new Vector3(xHitPoint, yHitPoint, 0);
+        Ray camRay = Camera.main.ScreenPointToRay(screenCenter);
+
+        // Create a RaycastHit variable to store information about what was hit by the ray.
+        RaycastHit hit;
+        float camRayLength = 100;
+        Collider collider = null;
+
+        // Perform the raycast and if it hits something    
+        if(Physics.Raycast(camRay, out hit, camRayLength))
+        {
+            collider = hit.collider;
+            hitPoint = hit.point;
+        }
+        else
+        {
+            //didnt hit, so calculate the ending of the line
+            Vector3 startPoint = Camera.main.ScreenToWorldPoint(screenCenter);//Vector3(xHitPoint, yHitPoint, Camera.main.nearClipPlane));
+            Vector3 direction = Camera.main.transform.forward;
+            //make sure the length of the vector is 1:
+            direction.Normalize();
+            hitPoint = startPoint + (direction * 100);
+        }
+        
+
+        return collider;
+
+    }
+
+    
     RaycastHit findHitPoint()
     {
         // Create a ray from the mouse cursor on screen in the direction of the camera.
@@ -135,8 +201,20 @@ public class PlayerShooting : MonoBehaviour {
         float camRayLength = 100;
         // Perform the raycast and if it hits something on the floor layer...
         Physics.Raycast(camRay, out hit, camRayLength);
-        
+
+        /*
+        if(!Physics.Raycast(camRay, out hit, camRayLength))
+        {
+            hit = new RaycastHit();
+
+            Vector3 direction = Camera.main.transform.forward;
+            direction.Normalize();
+            Vector3 endPoint = camRay.GetPoint(0) + (direction * camRayLength);
+        }
+        */
+
         return hit;
 
     }
+    
 }

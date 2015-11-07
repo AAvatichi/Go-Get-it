@@ -62,7 +62,7 @@ GameObject:
   - 23: {fileID: 2380456}
   - 65: {fileID: 6508826}
   m_Layer: 0
-  m_Name: Fance
+  m_Name: Fence
   m_TagString: Fance
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

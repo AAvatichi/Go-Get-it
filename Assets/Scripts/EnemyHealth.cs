@@ -78,9 +78,9 @@ public class EnemyHealth : MonoBehaviour {
         // The enemy is dead.
         isDead = true;
 
-        // Turn the collider into a trigger so shots can pass through it.
-        capsuleCollider.isTrigger = true;
-        //capsuleCollider.enabled = false;
+        // Turn of the collider so shots can pass through it.
+        capsuleCollider.enabled = false;
+
         // Tell the animator that the enemy is dead.
         anim.SetTrigger("Dead");
 
